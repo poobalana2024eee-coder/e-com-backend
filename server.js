@@ -10,10 +10,15 @@ connectdb();
 
 const app = express();
 
+/* 🔑 CORS — allow frontend from anywhere (for now) */
 app.use(cors({
-  origin: ['http://localhost:3000'],
-  credentials: true,
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
 }));
+
+// IMPORTANT: handle preflight
+app.options("*", cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
